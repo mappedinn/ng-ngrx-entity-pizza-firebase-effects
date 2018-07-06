@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "ng-ngrx-entity-pizza-firebase-effects"
+  "defaultProject": "ng-ngrx-entity-pizza-firebase-effects",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
