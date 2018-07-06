@@ -1,3 +1,10 @@
-<p>
-  pizza-status works!
-</p>
+<h3>Welcome to NgRx Pizza!</h3>
+
+<hr>
+
+<div *ngFor="let pizza of pizzas$ | async">
+  <h4>Pizza ID: {{pizza.id}} </h4>
+  <p>{{pizza.status}}</p>
+
+</div>
+ <button (click)="createPizza()">ADD PIZZA</button>
