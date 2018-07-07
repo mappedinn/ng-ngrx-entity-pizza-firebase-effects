@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as fromPizza from 'app/modules/pizza/store/reducers/pizza.reducer';
-import * as actionsPizza from 'app/modules/pizza/store/actions/pizza.actions';
+import * as fromPizza from './../../store/reducers/pizza.reducer';
+import * as actionsPizza from './../..//store/actions/pizza.actions';
 
 @Component({
   selector: 'app-pizza-status',
@@ -17,23 +17,11 @@ export class PizzaStatusComponent implements OnInit {
 
   ngOnInit() {
     this.pizzas$ = this.store.select(fromPizza.selectAll);
-
-    const pizza = {
-      id: new Date().getMilliseconds().toString(),
-      size: 'small',
-      status: 'cooking'
-    };
-    this.store.dispatch(new actionsPizza.PizzaAddedAction(pizza));
-
+    this.store.dispatch( new actionsPizza.PizzaQueryAction());
   }
 
-  createPizza() {
-    const pizza = {
-      id: new Date().getMilliseconds().toString(),
-      size: 'small',
-      status: 'cooking'
-    };
-    this.store.dispatch(new actionsPizza.PizzaAddedAction(pizza));
+  updatePizza(id, status) {
+    this.store.dispatch(new actionsPizza.PizzaUpdateAction(id, {status}));
   }
 
 }

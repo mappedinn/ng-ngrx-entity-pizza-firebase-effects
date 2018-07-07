@@ -1,10 +1,11 @@
 <h3>Welcome to NgRx Pizza!</h3>
 
 <hr>
-
+Here...
 <div *ngFor="let pizza of pizzas$ | async">
   <h4>Pizza ID: {{pizza.id}} </h4>
   <p>{{pizza.status}}</p>
-
+ <!-- <button (click)="updatePizza(pizza.id, 'delivered')">Update PIZZA status </button> -->
 </div>
- <button (click)="createPizza()">ADD PIZZA</button>
+
+DONE...

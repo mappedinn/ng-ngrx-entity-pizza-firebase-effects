@@ -4,16 +4,28 @@ import { EnsureModuleLoadedOnceGuard } from './EnsureModuleLoadedOnceGuard';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-// import { environment } from './../../environments/environment';
 import { environment } from '@env/environment';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { DataService} from './services/data.service';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   imports: [
     CommonModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([])
   ],
-  declarations: []
+  declarations: [],
+  providers: [
+    DataService
+  ]
 })
 export class CoreModule extends EnsureModuleLoadedOnceGuard {
   // Ensure that CoreModule is only loaded into AppModule

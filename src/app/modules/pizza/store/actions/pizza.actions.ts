@@ -1,27 +1,34 @@
 import { Action } from '@ngrx/store';
-import { Pizza } from '@app/modules/pizza/store/reducers/pizza.reducer';
+
+export interface Pizza {
+  id: string;
+  size: string;
+  status: string;
+}
+
+
 
 export enum PizzaActionTypes {
   // PIZZA_QUERY: Action from angular app
-  PIZZA_QUERY = '[Pizza] QUERY',
+  PIZZA_QUERY = '[Pizza] query pizzas',
 
   // PIZZA_QUERY: Action from firbase
-  PIZZA_ADDED = '[Pizza] ADDED',
+  PIZZA_ADDED = '[Pizza] added',
 
   // PIZZA_QUERY: Action from firebase
-  PIZZA_MODIFED = '[Pizza] MODIFIED',
+  PIZZA_MODIFED = '[Pizza] modified',
 
-  // PIZZA_DELETED: Action from angular app
-  PIZZA_DELETED = '[Pizza] DELETED',
-
-  // PIZZA_QUERY: Action from angular app
-  PIZZA_UPDATE = '[Pizza] UPDATE',
+  // PIZZA_REMOVED: Action from angular app
+  PIZZA_REMOVED = '[Pizza] removed',
 
   // PIZZA_QUERY: Action from angular app
-  PIZZA_UPDATE_SUCCESS = '[Pizza] UPDATE SUCCESS'
+  PIZZA_UPDATE = '[Pizza] update',
+
+  // PIZZA_QUERY: Action from angular app
+  PIZZA_UPDATE_SUCCESS = '[Pizza] update success'
 
   // SUMMARY:
-  // By convention, if the action is past participale (added, modified, deleted)
+  // By convention, if the action is past participale (added, modified, removed)
   // then, the action is done in the backend (here, it it firebase)
   // By convention, if the action is verb (query, update, update success)
   // then, the action is done by the front
@@ -45,8 +52,8 @@ export class PizzaModifiedAction implements Action {
   constructor(public paylaod: Pizza) {}
 }
 
-export class PizzaDeletedAction implements Action {
-  readonly type = PizzaActionTypes.PIZZA_DELETED;
+export class PizzaRemovedAction implements Action {
+  readonly type = PizzaActionTypes.PIZZA_REMOVED;
 
   constructor(public paylaod: Pizza) {}
 }
@@ -65,4 +72,4 @@ export class PizzaUpdateSuccessAction implements Action {
 
 
 export type PizzaActions = PizzaQueryAction |  PizzaAddedAction | PizzaModifiedAction |
-  PizzaDeletedAction | PizzaUpdateAction | PizzaUpdateSuccessAction;
+  PizzaRemovedAction | PizzaUpdateAction | PizzaUpdateSuccessAction;

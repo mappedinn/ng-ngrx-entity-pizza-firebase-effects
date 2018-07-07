@@ -1,22 +1,13 @@
 import { Action, createFeatureSelector } from '@ngrx/store';
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
-import { PizzaActions, PizzaActionTypes } from '../actions/pizza.actions';
-// import * as fromApp from '@app/core/store/reducers';
-import { State } from '@app/core/store/reducers';
-
-
-export interface Pizza {
-  id: string;
-  size: string;
-  status: string;
-}
-
+import { PizzaActions, PizzaActionTypes, Pizza} from '../actions/pizza.actions';
+// import { State } from '@app/core/store/reducers';
 
 const defaultPizza = {
-  ids: ['000'],
+  ids: ['ABC'],
   entities: {
-    '000': {
-      id: '000',
+    'ABC': {
+      id: 'ABC',
       size: 'small',
       status: 'cooking'
     }
@@ -27,29 +18,51 @@ export const pizzaAdaptor = createEntityAdapter<Pizza>();
 export interface PizzaState extends EntityState<Pizza> {
 }
 
-// Redefining fromApp.State by extending itself and adding in the same time the element pizza
+// Redefining fromApp.State by extending itself and adding in the same time the slice pizza
 // So that, the 'pizza' will  always available in the store
 // PS: a trial has been done but it seems not to be the case.
-export interface State extends State {
-  pizza: PizzaState;
-}
+// export interface State extends State {
+//   pizza: PizzaState;
+// }
 
-// export const initialState: PizzaState = pizzaAdaptor.getInitialState();
-export const initialState: PizzaState = pizzaAdaptor.getInitialState(defaultPizza);
+export const initialState: PizzaState = pizzaAdaptor.getInitialState();
+// export const initialState: PizzaState = pizzaAdaptor.getInitialState(defaultPizza);
 
 export function reducer(state = initialState, action: PizzaActions): PizzaState {
   switch (action.type) {
 
     case PizzaActionTypes.PIZZA_ADDED:
-      console.log('PIZZA_ADDED');
+      // if there is one pizza added in the backend, so the store has to be added
+      console.log('action.payload=');
+      console.log(JSON.stringify(action.paylaod));
+      console.log(JSON.stringify(action['paylaod']));
+      // console.log('action.paylaod=');
+      // console.log(JSON.stringify(action.paylaod));
+      // const payload = action['paylaod'];
+      // console.log(JSON.stringify(action['paylaod']));
+      // return pizzaAdaptor.addOne({id: '003', size: 'medium', status: 'cooking'}, state);
       return pizzaAdaptor.addOne(action.paylaod, state);
 
+    case PizzaActionTypes.PIZZA_MODIFED:
+      // if there is one pizza being modified in the backend, so the store has to modify it
+      return pizzaAdaptor.updateOne({
+        id: action.paylaod.id,
+        changes: action.paylaod
+      }, state);
+
+    case PizzaActionTypes.PIZZA_REMOVED:
+      // if there is one pizza being removed in the backend, so the store has to remove it
+      return pizzaAdaptor.removeOne(action.paylaod.id, state);
+
     default:
-      console.log('default');
       return state;
   }
 }
 
 export const getPizzaState = createFeatureSelector<PizzaState>('pizza');
 
-export const { selectAll } = pizzaAdaptor.getSelectors(getPizzaState);
+export const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal } = pizzaAdaptor.getSelectors(getPizzaState);
