@@ -33,26 +33,24 @@ export function reducer(state = initialState, action: PizzaActions): PizzaState 
 
     case PizzaActionTypes.PIZZA_ADDED:
       // if there is one pizza added in the backend, so the store has to be added
+      console.log('action=');
+      console.log(JSON.stringify(action));
       console.log('action.payload=');
-      console.log(JSON.stringify(action.paylaod));
-      console.log(JSON.stringify(action['paylaod']));
-      // console.log('action.paylaod=');
-      // console.log(JSON.stringify(action.paylaod));
-      // const payload = action['paylaod'];
-      // console.log(JSON.stringify(action['paylaod']));
+      console.log(JSON.stringify(action.payload));
+      console.log(JSON.stringify(action['payload']));
       // return pizzaAdaptor.addOne({id: '003', size: 'medium', status: 'cooking'}, state);
-      return pizzaAdaptor.addOne(action.paylaod, state);
+      return pizzaAdaptor.addOne(action.payload, state);
 
     case PizzaActionTypes.PIZZA_MODIFED:
       // if there is one pizza being modified in the backend, so the store has to modify it
       return pizzaAdaptor.updateOne({
-        id: action.paylaod.id,
-        changes: action.paylaod
+        id: action.payload.id,
+        changes: action.payload
       }, state);
 
     case PizzaActionTypes.PIZZA_REMOVED:
       // if there is one pizza being removed in the backend, so the store has to remove it
-      return pizzaAdaptor.removeOne(action.paylaod.id, state);
+      return pizzaAdaptor.removeOne(action.payload.id, state);
 
     default:
       return state;

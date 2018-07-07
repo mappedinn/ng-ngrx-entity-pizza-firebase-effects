@@ -43,19 +43,19 @@ export class PizzaQueryAction implements Action {
 export class PizzaAddedAction implements Action {
   readonly type = PizzaActionTypes.PIZZA_ADDED;
 
-  constructor(public paylaod: Pizza) {}
+  constructor(public payload: Pizza) {}
 }
 
 export class PizzaModifiedAction implements Action {
   readonly type = PizzaActionTypes.PIZZA_MODIFED;
 
-  constructor(public paylaod: Pizza) {}
+  constructor(public payload: Pizza) {}
 }
 
 export class PizzaRemovedAction implements Action {
   readonly type = PizzaActionTypes.PIZZA_REMOVED;
 
-  constructor(public paylaod: Pizza) {}
+  constructor(public payload: Pizza) {}
 }
 
 export class PizzaUpdateAction implements Action {
